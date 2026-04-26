@@ -114,15 +114,60 @@
     @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,0.5)} 50%{box-shadow:0 0 0 6px rgba(74,222,128,0)} }
 
     .hero {
-      min-height: auto;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 5rem 1.5rem 4rem;
+      padding: 4rem 1.5rem 5rem;
       position: relative;
     }
+
+    /* scroll hint arrow */
+    .scroll-hint {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 1.5s forwards;
+      color: rgba(74,222,128,0.5);
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .scroll-hint svg {
+      width: 22px; height: 22px;
+      animation: bounceDown 1.8s ease-in-out infinite;
+    }
+    @keyframes bounceDown {
+      0%,100% { transform: translateY(0); opacity: 0.4; }
+      50%      { transform: translateY(8px); opacity: 1; }
+    }
+
+    /* scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.25s; }
+    .reveal-delay-3 { transition-delay: 0.4s; }
+    .reveal-delay-4 { transition-delay: 0.55s; }
 
     .mc-block {
       position: absolute;
@@ -366,7 +411,7 @@
 
     /* ── FEATURES ── */
     .features {
-      padding: 5rem 2rem;
+      padding: 2rem 2rem 4rem;
       max-width: 860px;
       margin: 0 auto;
     }
@@ -611,14 +656,22 @@
         </div>
       </div>
 
+      <!-- Scroll Hint -->
+      <div class="scroll-hint">
+        <span>Scroll</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </div>
+
     </section>
 
     <!-- FEATURES -->
     <section class="features">
-      <p class="section-label">✦ Fitur Unggulan</p>
-      <h2 class="section-title">Kenapa Pilih <span>Nexura</span>?</h2>
+      <p class="section-label reveal">✦ Fitur Unggulan</p>
+      <h2 class="section-title reveal reveal-delay-1">Kenapa Pilih <span>Nexura</span>?</h2>
       <div class="cards">
-        <div class="card">
+        <div class="card reveal reveal-delay-1">
           <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
             <line x1="2" y1="12" x2="22" y2="12"/>
@@ -627,7 +680,7 @@
           <h3>Dunia Survival Luas</h3>
           <p>World berukuran besar dengan terrain vanilla yang belum pernah di-reset. Setiap sudut menyimpan petualangan baru yang menunggumu.</p>
         </div>
-        <div class="card">
+        <div class="card reveal reveal-delay-2">
           <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="8" r="6"/>
             <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
@@ -635,28 +688,11 @@
           <h3>Rank &amp; Prestasi</h3>
           <p>Sistem rank unik berdasarkan aktivitas dan dedikasi. Tunjukkan kemampuanmu dan raih title tertinggi di antara semua pemain.</p>
         </div>
-        <div class="card">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-          </svg>
-          <h3>Komunitas Aktif</h3>
-          <p>Ratusan pemain aktif setiap hari. Bergabunglah dengan komunitas yang ramah, kolaboratif, dan penuh semangat bertualang.</p>
-        </div>
-        <div class="card">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
-          <h3>Anti-Cheat &amp; Aman</h3>
-          <p>Sistem keamanan berlapis memastikan pengalaman bermain yang adil. Nikmati survival tanpa khawatir pemain curang.</p>
-        </div>
       </div>
     </section>
 
     <!-- STATS BANNER -->
-    <div class="info-banner">
+    <div class="info-banner reveal">
       <div class="banner-inner">
         <div>
           <div class="stat-icon">
@@ -729,6 +765,18 @@
 
     resize(); initStars(); drawStars();
     window.addEventListener('resize', () => { resize(); initStars(); });
+
+    // ── SCROLL REVEAL ──
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
 
     // ── COPY IP ──
     function copyText(text, cardEl) {
